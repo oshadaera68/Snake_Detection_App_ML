@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Snake Detection App</title>
+    <style>
+        /* Add some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #image-preview {
+            max-width: 500px;
+            margin: 20px auto;
+        }
+
+        #result {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Snake Detection App</h1>
+
+<input type="file" id="image-upload" accept="image/*">
+
+<div id="image-preview"></div>
+
+<div id="result"></div>
+
+<script>
+    // Get the input element and register an event listener
+    const inputElement = document.getElementById("image-upload");
+    inputElement.addEventListener("change", handleFiles, false);
+
+    // Function to handle the file upload
+    function handleFiles() {
+        const file = this.files[0];
+
+        // Check if the file is an image
+        if (!file.type.startsWith("image/")) {
+            alert("Please upload an image file.");
+            return;
+        }
+
+        // Create an image element to preview the uploaded image
+        const img = document.createElement("img");
+        img.classList.add("obj");
+        img.file = file;
+
+        // Display the uploaded image preview
+        const imagePreview = document.getElementById("image-preview");
+        imagePreview.innerHTML = "";
+        imagePreview.appendChild(img);
+
+        // Read the uploaded image file
+        const reader = new FileReader();
+        reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+        reader.readAsDataURL(file);
+
+        // Perform snake detection and display the result
+        // performSnakeDetection(file);
+    }
+
+    // Function to perform snake detection
+    // function performSnakeDetection(imageFile) {
+    //     // You would need to implement the logic for snake detection using your preferred technology/library.
+    //     // This could involve making an API request to a snake detection service or running a machine learning model.
+    //     // Once you have the result, update the "result" element with the detected snakes.
+    //     const resultElement = document.getElementById("result");
+    //     resultElement.innerHTML = "Detecting snakes...";
+    //
+    //     // Simulating a delay to show the loading message
+    //     setTimeout(() => {
+    //         // Replace this with the actual result from snake detection
+    //         const snakesDetected = 3;
+    //         resultElement.innerHTML = `Detected ${snakesDetected} snakes.`;
+    //     }, 2000);
+    // }
+</script>
+</body>
+</html>
